@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rniyablog.dao.admin.BlogsDao">
+
+    <!--所有博客-->
+    <resultMap id="blog" type="com.rniyablog.entity.Blog">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="content" column="content"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="createTime" column="create_time"/>
+        <result property="views" column="views"/>
+        <result property="published" column="published"/>
+        <result property="recommend" column="recommend"/>
+        <result property="flag" column="flag"/>
+    </resultMap>
+
+    <resultMap id="blogParticular" type="com.rniyablog.queryvo.BlogParticular">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="firstPicture" column="first_picture"/>
+        <result property="commentable" column="commentable"/>
+        <result property="flag" column="flag"/>
+        <result property="published" column="published"/>
+        <result property="shareStatement" column="share_statement"/>
+        <result property="recommend" column="recommend"/>
+        <result property="description" column="description"/>
+        <result property="userId" column="user_id"/>
+        <result property="views" column="views"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <!--    查询博客详情-->
+    <select id="getBlogParticularById" resultMap="blogParticular">
+        SELECT b.id,
+               b.title,
+               b.content,
+               b.first_picture,
+               b.commentable,
+               b.flag,
+               b.published,
+               b.share_statement,
+               b.recommend,
+               b.description,
+               b.user_id,
+               b.views,
+               b.create_time
+        FROM rniyablog.t_blog b
+        WHERE b.id = #{id}
+    </select>
+
+    <!--    获取博客列表-->
+    <select id="getBlogList" resultType="com.rniyablog.queryvo.BlogList">
+        SELECT b.`title`,
+               b.`id`,
+               b.`first_picture`,
+               b.`create_time`,
+               b.`flag`,
+               b.`views`,
+               b.`description`,
+               COUNT(c.`id`) commentCount
+        FROM rniyablog.`t_blog` b
+                 LEFT JOIN rniyablog.`t_comment` c
+                           ON c.`blog_id` = b.`id`
+        GROUP BY b.id
+    </select>
+
+    <!--    查询所有博客-->
+    <select id="getAllBlog" resultMap="blog">
+        select b.id,
+               b.title,
+               b.first_picture,
+               b.description,
+               b.content,
+               b.create_time,
+               b.views,
+               b.published,
+               b.recommend,
+               b.flag
+        from rniyablog.t_blog b
+    </select>
+
+    <!--    新增保存-->
+    <insert id="saveBlog" parameterType="com.rniyablog.entity.Blog">
+        insert into rniyablog.t_blog(id, title, content, first_picture, commentable, flag, published, share_statement,
+                                     recommend, description, user_id, views, create_time)
+        values (#{id}, #{title}, #{content}, #{firstPicture}, #{commentable}, #{flag}, #{published}, #{shareStatement},
+                #{recommend}, #{description}, #{userId}, #{views}, #{createTime})
+    </insert>
+
+
+    <!--    删除博客-->
+    <delete id="deleteBlog" parameterType="com.rniyablog.entity.Blog">
+        delete
+        from rniyablog.t_blog
+        where id = #{id}
+    </delete>
+
+    <!--    通过id查找博客-->
+    <select id="getBlogById" resultType="com.rniyablog.entity.Blog">
+        select *
+        from rniyablog.t_blog
+        where id = #{id}
+    </select>
+
+    <!--    修改播客-->
+    <update id="updateBlog" parameterType="com.rniyablog.entity.Blog">
+        update rniyablog.t_blog
+        set title           = #{title},
+            content         = #{content},
+            first_picture   = #{firstPicture},
+            commentable     = #{commentable},
+            flag            = #{flag},
+            published       = #{published},
+            share_statement = #{shareStatement},
+            recommend       = #{recommend},
+            description     = #{description}
+        where id = #{id}
+    </update>
+
+    <!--搜索博客列表-->
+    <select id="searchByCondition" parameterType="com.rniyablog.queryvo.SearchBlog" resultMap="blog">
+        <bind name="pattern" value="'%' + blogTitle + '%'"/>
+        select b.id, b.title, b.create_time, b.views, b.published, b.recommend, b.flag
+        from rniyablog.t_blog b
+        <where>
+            <if test="blogId != null">
+                b.id = #{blogId}
+            </if>
+            <if test="blogTitle != null">
+                and b.title like #{pattern}
+            </if>
+            <if test="flag != null">
+                and b.flag = #{flag}
+            </if>
+        </where>
+    </select>
+
+    <select id="getIndexMessage" resultType="com.rniyablog.queryvo.IndexSelect">
+        SELECT DISTINCT SUM(b.`views`) views, COUNT(b.`id`) blogs, COUNT(c.`id`) comments
+        FROM rniyablog.`t_blog` b
+                 LEFT JOIN rniyablog.`t_comment` c
+                           ON b.`id` = c.`blog_id`
+    </select>
+
+    <select id="getBlogByTitle" resultMap="blog">
+        <bind name="title" value="'%' + title + '%'"/>
+        SELECT b.id, b.title,b.first_picture,b.description,b.content,b.create_time, b.views, b.published, b.recommend,
+        b.flag
+        FROM rniyablog.t_blog b
+        WHERE b.title LIKE #{title}
+    </select>
+
+    <update id="updateViews" parameterType="com.rniyablog.entity.Blog">
+        UPDATE rniyablog.t_blog b
+        SET b.views = b.views + 1
+        WHERE b.id = #{id}
+    </update>
+
+    <update id="getCommentCountById" parameterType="com.rniyablog.entity.Blog">
+        UPDATE rniyablog.`t_blog` b
+        SET b.comment_count = (SELECT count(*) FROM rniyablog.`t_comment` c WHERE c.blog_id = #{id} AND b.id = #{id})
+        WHERE b.id = #{id}
+    </update>
+
+    <select id="getBlogListByTagId" resultType="com.rniyablog.queryvo.BlogList">
+        SELECT b.`title`,
+               b.`id`,
+               b.`first_picture`,
+               b.`create_time`,
+               b.`flag`,
+               b.`views`,
+               b.`description`
+        FROM rniyablog.`t_blog` b
+        WHERE b.`id` IN (SELECT bt.`blog_id` FROM rniyablog.`blog_tags` bt WHERE bt.`tag_id` = #{tagId})
+    </select>
+
+    <select id="getGroupYear" resultType="java.lang.String">
+        SELECT DATE_FORMAT(b.`create_time`, '%Y') AS YEAR
+        FROM rniyablog.`t_blog` b
+        GROUP BY YEAR
+        ORDER BY YEAR DESC
+    </select>
+
+    <select id="getBlogByYear" resultType="com.rniyablog.entity.Blog">
+        <bind name="pattern" value="year + '%'"/>
+        SELECT * FROM rniyablog.`t_blog` b WHERE b.`create_time` LIKE #{pattern} ORDER BY b.`create_time` DESC
+    </select>
+
+    <select id="getBlogIdByTitleAndUserId" resultType="com.rniyablog.entity.Blog">
+        SELECT * FROM rniyablog.`t_blog` b WHERE b.title = #{title} AND b.user_id = #{userId}
+    </select>
+
+</mapper>

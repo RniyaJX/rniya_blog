@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rniyablog.dao.admin.TagDao">
+
+    <resultMap id="tag" type="com.rniyablog.queryvo.TagBlogs">
+        <id property="tagId" column="id"/>
+        <result property="tagName" column="tag_name"/>
+        <result property="blogNum" column="blog_num"/>
+    </resultMap>
+
+    <resultMap id="tags" type="com.rniyablog.entity.Tag">
+        <id property="id" column="id"/>
+        <result property="name" column="tagName"/>
+    </resultMap>
+
+    <select id="getAllTags" resultMap="tags">
+        select t.id, t.name
+        from t_tag
+    </select>
+
+    <select id="findAll" resultMap="tag">
+        SELECT t.`id`, t.`tag_name`, COUNT(t.`id` = bt.`blog_id`) AS blog_num
+        FROM t_tag t
+                 LEFT JOIN blog_tags bt
+                           ON t.`id` = bt.`tag_id`
+        GROUP BY t.`id`
+    </select>
+
+    <delete id="deleteTag" parameterType="com.rniyablog.entity.Tag">
+        delete
+        from rniyablog.t_tag
+        where id = #{id}
+    </delete>
+
+    <select id="getTagById" resultType="com.rniyablog.entity.Tag">
+        SELECT t.`id`, t.`tag_name`
+        FROM rniyablog.t_tag t
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateTag" parameterType="com.rniyablog.entity.Tag">
+        UPDATE rniyablog.t_tag
+        SET tag_name=#{tagName}
+        WHERE id = #{id}
+    </update>
+
+    <select id="getTagByName" resultType="com.rniyablog.entity.Tag">
+        SELECT t.`id`, t.`tag_name`
+        FROM rniyablog.t_tag t
+        WHERE tag_name = #{tagName}
+    </select>
+
+    <insert id="saveTag" parameterType="com.rniyablog.entity.Tag">
+        INSERT INTO rniyablog.`t_tag`(id, tag_name)
+            VALUE (#{id},#{tagName})
+    </insert>
+
+    <select id="getTagByBlogId" resultType="com.rniyablog.queryvo.BlogTags">
+        SELECT bt.`blog_id`, bt.`tag_id`, t.`tag_name`
+        FROM rniyablog.`blog_tags` bt
+                 LEFT JOIN rniyablog.`t_tag` t ON bt.`tag_id` = t.`id`
+        WHERE bt.`blog_id` = #{id}
+    </select>
+
+    <insert id="saveBlogTags" parameterType="java.util.ArrayList">
+        insert into rniyablog.`blog_tags` (blog_id,tag_id)
+        values
+            <foreach collection="list" item="blogTags" separator=",">
+                (#{blogTags.blogId},#{blogTags.tagId})
+            </foreach>
+    </insert>
+
+    <delete id="deleteBlogTagsByBlogId" parameterType="com.rniyablog.entity.Blog">
+        DELETE FROM rniyablog.`blog_tags` WHERE blog_id = #{id}
+    </delete>
+
+    <delete id="deleteTagById" parameterType="com.rniyablog.entity.Blog">
+        DELETE FROM rniyablog.`blog_tags` WHERE blog_id = #{id}
+    </delete>
+
+
+</mapper>

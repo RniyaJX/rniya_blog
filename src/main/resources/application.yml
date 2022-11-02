@@ -1,0 +1,44 @@
+spring:
+  #??thymeleaf??
+  thymeleaf:
+    mode: HTML
+  main:
+    allow-circular-references: false
+  #?????
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/rniyablog?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 114514
+  #视图解析器配置
+  mvc:
+    view:
+      prefix: classpath*:/templates/
+      suffix: .html
+      #开启restful
+    hiddenmethod:
+      filter:
+        enabled: true
+server:
+  port: 8080
+
+#??mybatis
+mybatis:
+  type-aliases-package: com.rniyablog.entity
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+  #mybatis分页插件配置
+pagehelper:
+  #设置参数合理化
+  reasonable: true
+
+logging:
+  level:
+    root: info
+    com.rniyablog: debug
+  file:
+    path: log/rniyablog-dev.log
+
+comment.avatar: /images/portrait/avatar.jpg
+message.avatar: /images/portrait/avatar.jpg

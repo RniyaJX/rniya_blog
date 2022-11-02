@@ -1,0 +1,45 @@
+.blog-list,.blog-markdown{
+    width: 100%;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+    background-color: rgba(255,255,255,0.4);
+    border: 1px solid rgb(234, 234, 234);
+    border-radius: 20px;
+    position: relative;
+    margin-top: 8em;
+}
+
+.blog-markdown{
+    width: 100%;
+}
+
+.blog-table{
+    margin: 2em;
+}
+
+.table-type{
+    border-bottom: 2px solid rgb(23, 162, 190);
+}
+
+.table td,
+.table th{
+    vertical-align: middle;
+}
+
+.blog-list-pagger{
+    width: 100%;
+    padding: 1em;
+    border-top: 2px solid rgb(23, 162, 190);
+}
+
+#md-content{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.blog-title,
+.blog-img{
+    width: 95%;
+    margin-top: 1em;
+    position: relative;
+    left: 1.7em;
+}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--导航栏-->
+<nav th:fragment="menu(n)" class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow p-1 mb-5 bg-white"
+     id="nav_top">
+    <div class="container-lg row justify-content-between">
+        <div class="col-md col offset-md-1 offset-1">
+            <a class="navbar-brand md-0 h1 nav-font" href="#" style="font-size:30px;" th:href="@{/admin/index}">RniyaBlog</a>
+        </div>
+        <div class="col-md col offset-md-9">
+            <form th:action="@{/blog/search}" method="get" id="blogSearch">
+                <div class="border rounded-pill container" id="search-div" name="blogNameSearch"
+                     style="height: 1.9em; width: 14em">
+                    <input class="border-0 nav-font nav-search" name="title" type="text" placeholder="Search...">
+                    <i class="layui-icon layui-icon-search nav-font" id="search"></i>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6 h6">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-top: 0.5em">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-font" href="#" th:classappend="${n == 1} ? 'text-primary'"
+                           th:href="@{/}">
+                            <span><i class="bi bi-house"></i>&nbsp;首页</span>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link nav-font" href="#" th:classappend="${n == 2} ? 'active'"
+                           th:href="@{/tag/-1}">
+                            <span><span class="bi bi-tags"></span>&nbsp;标签</span>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link nav-font" href="#" th:classappend="${n == 3} ? 'active'" th:href="@{/archive}">
+                            <span><i class="bi bi-calendar2-week"></i>&nbsp;归档</span>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link nav-font" href="#" th:classappend="${n == 4} ? 'active'" th:href="@{/friendlink}">
+                            <span><i class="bi bi-link-45deg"></i>&nbsp;友链</span>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link nav-font" href="#" th:classappend="${n == 5} ? 'active'" th:href="@{/about}">
+                            <span><i class="bi bi-emoji-smile"></i> &nbsp;关于我</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>

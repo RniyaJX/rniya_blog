@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rniyablog.dao.admin.CommentDao">
+
+    <select id="getAllComment" resultType="com.rniyablog.entity.Comment">
+        SELECT *
+        FROM rniyablog.t_comment
+    </select>
+
+    <select id="getCommentByBlogId" resultType="com.rniyablog.entity.Comment">
+        SELECT *
+        FROM rniyablog.t_comment c
+        WHERE c.blog_id = #{id}
+    </select>
+
+    <select id="getBlogIdParentIdNotNull" resultType="com.rniyablog.entity.Comment">
+        SELECT *
+        FROM rniyablog.`t_comment` c
+        WHERE c.`parent_comment_id` = #{id}
+          AND c.`blog_id` = #{blogId}
+    </select>
+
+    <select id="getBlogIdParentIdIsNull" resultType="com.rniyablog.entity.Comment">
+        SELECT *
+        FROM rniyablog.`t_comment` c
+        WHERE c.`blog_id` = #{blogId}
+          AND (c.`parent_comment_id` IS NULL OR c.`parent_comment_id` = -1)
+        ORDER BY c.`create_time` DESC
+    </select>
+
+    <select id="findBlogIdParentIdIsNull" resultType="com.rniyablog.entity.Comment">
+        SELECT *
+        FROM rniyablog.`t_comment` c
+        WHERE c.`blog_id` = #{blogId}
+          AND c.`id` = #{id}
+        ORDER BY c.`create_time` DESC
+    </select>
+
+    <select id="findByBlogIdAndReplayId" resultType="com.rniyablog.entity.Comment">
+        SELECT *
+        FROM rniyablog.`t_comment` c
+        WHERE c.`blog_id` = #{blogId}
+          AND parent_comment_id = #{childId}
+    </select>
+
+    <insert id="saveComment" parameterType="com.rniyablog.entity.Comment">
+        INSERT INTO rniyablog.`t_comment` (avatar, create_time, email, blog_id, parent_comment_id, nickname,
+                                           admin_comment, content)
+        VALUES (#{avatar}, #{createTime}, #{email}, #{blogId}, #{parentCommentId}, #{nickname}, #{adminComment},
+                #{content})
+    </insert>
+
+    <delete id="deleteComment" parameterType="com.rniyablog.entity.Comment">
+        DELETE
+        FROM rniyablog.`t_comment`
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

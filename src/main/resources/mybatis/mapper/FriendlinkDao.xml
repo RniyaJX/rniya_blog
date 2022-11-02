@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rniyablog.dao.admin.FriendlinkDao">
+
+    <select id="getFriendlinkList" resultType="com.rniyablog.entity.Friendlink">
+        SELECT *
+        FROM rniyablog.`t_friendlink`
+    </select>
+
+    <insert id="saveFriendlink" parameterType="com.rniyablog.entity.Friendlink">
+        INSERT INTO rniyablog.`t_friendlink`(id,link,img,avatar,title,webmaster)
+        VALUES(#{id},#{link},#{img},#{avatar},#{title},#{webmaster})
+    </insert>
+
+    <select id="selectFriendlinkByTitle" parameterType="com.rniyablog.entity.Friendlink">
+        SELECT * FROM rniyablog.`t_friendlink` WHERE title = #{title}
+    </select>
+
+    <select id="findFriendlinkById" resultType="com.rniyablog.entity.Friendlink">
+        SELECT * FROM rniyablog.`t_friendlink` WHERE id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="com.rniyablog.entity.Friendlink">
+        DELETE FROM rniyablog.`t_friendlink` WHERE id = #{id}
+    </delete>
+
+    <update id="updateFriendlink" parameterType="com.rniyablog.entity.Friendlink">
+        update rniyablog.`t_friendlink`
+        set title           = #{title},
+            link            = #{link},
+            img             = #{img},
+            avatar          = #{avatar},
+            webmaster       = #{webmaster}
+        where id = #{id}
+    </update>
+
+</mapper>

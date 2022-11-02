@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Rniyablog</title>
+
+    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css" th:href="@{/lib/layui/css/layui.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/css/blog/blogCard.css" th:href="@{/css/blog/blogCard.css}">
+    <link rel="stylesheet" href="../../static/css/blog/footer.css" th:href="@{/css/blog/footer.css}">
+
+</head>
+<body>
+<!--    导航栏-->
+<nav th:replace="blog/_fragments" class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow p-1 mb-5 bg-white" id="nav_top">
+    <div class="container-lg row justify-content-between">
+        <div class="col-md col offset-md-1 offset-1">
+            <a class="navbar-brand md-0 h1" href="#" style="font-size:30px;">RniyaBook</a>
+        </div>
+        <div class="col-md col offset-md-9">
+            <div class="border rounded-pill container" id="search-div" style="height: 1.9em; width: 14em">
+                <input class="border-0 nav-search" type="text" placeholder="Search...">
+                <i class="layui-icon layui-icon-search"></i>
+            </div>
+        </div>
+        <div class="col-md-6 h6">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-top: 0.5em">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-home "></span>&nbsp;首页</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-note"></span>&nbsp;标签</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-tabs"></span>&nbsp;归档</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-link"></span>&nbsp;友链</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-face-smile"></span> &nbsp;关于我</strong>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!--中间内容-->
+<div class="row justify-content-center m-clear-padding article_type" id="index_body" style="width: 100% !important; margin-top: 10em;">
+    <div class="row col-md-5 col-12 m-clear-padding-right " id="left_body" th:fragment="article_type">
+        <section class="section is-primary animate__animated" th:each="blog:${pageInfo.list}">
+            <div class="container">
+                <div class="blog-card" th:onclick="window.open([[@{/blog/{id}(id=${blog.id})}]])">
+                    <div class="image-wrapper">
+                        <div class="image" th:style="'background-image: url('+@{${blog.firstPicture}}+')'">
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h1 th:text="${blog.title}">Title Here</h1>
+                        <h2 th:text="${session.username}">Subtitle Here</h2>
+                        <p th:text="${blog.description}" style="width: 100%; height: 60%">
+                            <!--                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut-->
+                            <!--                            labore et dolore magna aliqua.-->
+                        </p>
+                        <p class="card-actions" style="width: 100%;position: relative; bottom: 20px">
+                            <i class="bi bi-eye"></i><span th:text="${blog.views}">10</span>
+                            &nbsp;&nbsp;&nbsp;
+                            <i class="bi bi-chat-dots text-success"></i><span>10</span>
+                            <span class="badge badge-info" style="position:absolute;right: 1em">原创</span>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="w-100"></div>
+        <nav aria-label="Page navigation example" class="float-left align-middle"
+             style="height: 40px; margin-top: 1em;">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link d-inline" href="#" aria-label="Previous" th:unless="${pageInfo.isFirstPage}"
+                       th:href="@{/index(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link d-inline" href="#" th:each="pageNum : ${pageInfo.navigatepageNums}"
+                       th:href="@{/index(pageNum=${pageNum})}" th:text="${pageNum}">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link d-inline" aria-label="Next" th:unless="${pageInfo.isLastPage}"
+                       th:href="@{/index(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<!--底部内容-->
+<footer class="mainfooter" role="contentinfo" style="position:relative; top: 14em;">
+    <div class="footer-middle">
+        <div class="container">
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="col-md-12 copy">
+                    <p class="text-center"><span class="h4">🙂</span></p>
+                    <p class="text-center">感谢您浏览我的博客</p>
+                    <p class="text-center">Thanks for your browsing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+</div>
+<script>
+
+    // var pageNow = [[${pageInfo.pageNum}]];
+    //
+    // var url ='';
+
+    // $('#next').click(function (){
+    //     url='/index?pageNum='+(pageNow+1);
+    //     ajax(url);
+    // })
+    // $('#previous').click(function (){
+    //     url='/index?pageNum='+(pageNow-1);
+    //     ajax(url);
+    // })
+
+    // function ajax(url) {
+    //     $.ajax({
+    //         url: url,
+    //         type: 'GET',
+    //         success: function (data) {
+    //             $(".article_type").html(data);
+    //         }
+    //     })
+    // }
+
+    $('#search').click(function () {
+        $('#blogSearch').submit();
+    });
+
+
+    // if (number == 3) {
+    //     $(".welcome").addClass("text-dark");
+    // } else {
+    //     $(".welcome").addClass("text-light");
+    // }
+
+</script>
+
+</body>
+</html>

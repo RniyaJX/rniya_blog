@@ -1,0 +1,164 @@
+
+
+.animate__animated.animate__fadeInUp {
+    --animate-duration: 1s;
+}
+
+.m-margin-small{
+     margin-left: 0.5em !important;
+     margin-right: 0.5em !important;
+ }
+.m-margin-right{
+    margin-left: 10em !important;
+}
+.m-margin-top-small{
+    margin-top: 0.5em;
+}
+.m-margin-top{
+    margin-top: 1em;
+}
+
+.m-margin-top-large{
+    margin-top: 1.5em;
+}
+
+.m-margin-top-big{
+    margin-top: 2em;
+}
+
+.m-margin-top-huge{
+    margin-top: 2.5em;
+}
+.scroll-op{
+    background-color:rgba(0, 0, 0, 0.1) !important;
+    /*mix-blend-mode:screen;*/
+}
+.scroll-wi{
+    background-color: rgba(255, 255, 255, 1) !important;
+}
+.nav-wi-font,
+.nav-wi-font::placeholder{
+    color: rgba(255, 255, 255,0.8) !important;
+}
+
+.m-clear-padding{
+    padding: 0;
+}
+
+.m-clear-margin{
+    margin: 0 auto !important;
+}
+
+.m-clear-padding-left{
+    padding-left: 0;
+}
+
+.m-clear-padding-right{
+    padding-right: 0;
+}
+
+.m-padding-small{
+    padding-right: 0.5em;
+    padding-left: 0.5em;
+}
+.m-padding{
+    padding-right: 1em;
+    padding-left: 1em;
+}
+.m-padding-large{
+    padding-right: 1.5em;
+    padding-left: 1.5em;
+}
+
+.m-padding-big{
+    padding-right: 2.0em;
+    padding-left: 2.0em;
+}
+
+.background-img{
+    height: 970px;
+    background: url("../images/blogImg/wallhaven-pkq3zp.jpg") no-repeat center center;
+    background-size: 100%,100%;
+}
+
+.position-center{
+    position: relative;
+    top: 40%;
+}
+
+.position-center-bottom{
+    position: relative;
+    top: 41em;
+}
+
+.position-bottom{
+    position: relative;
+    top: 50em;
+}
+
+.padding-md-left{
+    padding-left: 0px !important;
+}
+
+input,
+.nav-search {
+    width: 11em;
+    background-color: rgba(255,255,255,0)
+}
+
+.padding-top-small{
+    margin-top: 50em !important;
+}
+
+.card,
+.blog{
+    max-width: 780px;
+    height: 240px;
+    margin-top: 1em;
+    border-radius: 20px !important;
+}
+
+.chick-comment{
+    box-shadow: 0px 0px 3px 3px rgba(255, 0, 0,0.3);
+    transition: 0.3s
+}
+
+.tag-size-1{
+    --tag-multiplier: 1;
+}
+.tag-size-2{
+    --tag-multiplier: 1.5;
+}
+.tag-size-3{
+    --tag-multiplier: 2;
+}
+.tag-size-4{
+    --tag-multiplier: 2.5;
+}
+
+.archive-count{
+    width: 60%;
+    height: 45px;
+    position: relative;
+    left: 20%;
+    background-color: rgba(200, 211, 217,0.1);
+    border-radius: 20px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+.archive{
+    width: 100%;
+    margin-top: 8em;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+    border: 1px solid rgb(234, 234, 234);
+    border-radius: 20px;
+    padding: 3em;
+}
+
+.popimg{
+    width: 10em;
+    height: 10em;
+}
+
+
+

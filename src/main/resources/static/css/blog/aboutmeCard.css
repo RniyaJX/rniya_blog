@@ -1,0 +1,80 @@
+#right_body{
+    width: 300px;
+    position: relative;
+}
+
+.about-me-container{
+    width: 100%;
+    height: 100%;
+    /*margin: 0 auto;*/
+    position: relative;
+}
+.about-me{
+    height: 400px;
+    width: 300px;
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    box-shadow: 0 3px 7px -1px rgba(0, 0, 0, 0.4);
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    position: sticky;
+    top:100px;
+}
+
+.about-me-head{
+    width:100%;
+    /*margin-top: 1em;*/
+    text-align: center;
+}
+
+.about-me{
+    max-width: 20rem;
+    height: 30em;
+    margin-top: 5px;
+}
+
+.about-me:hover {
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+    transform: translate(-5px,-5px);
+    transition: 0.5s;
+}
+
+
+.about-me-head img{
+    /*border-radius: 50%;*/
+    width: 96px;
+    align-content: center;
+    margin-top: 1em;
+}
+
+.about-me-head img:hover{
+    /*border-radius: 50%;*/
+    -moz-box-shadow: 0px 0px 25px rgba(63, 120, 255, 1);
+    -webkit-box-shadow: 0px 0px 25px rgba(63, 120, 255, 1);
+    box-shadow: 0px 0px 25px rgba(63, 120, 255, 1);
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.about-me-nickname{
+    width: 100%;
+    text-align: center;
+    margin-top: 1em;
+}
+
+.about-me-body{
+    height: 10em;
+    margin-top: 20px;
+    padding: 0;
+    width: 100%;
+}
+
+.about-me-tags{
+    height: 15px;
+    width: 30px;
+    margin: 5px auto;
+}
+
+.about-me p{
+    margin-bottom: 0px;
+}

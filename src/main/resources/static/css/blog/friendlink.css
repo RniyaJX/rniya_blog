@@ -1,0 +1,66 @@
+.link-container{
+    width: 100%;
+    margin-top: 8em;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+    border: 1px solid rgb(234, 234, 234);
+    border-radius: 20px;
+    padding: 3em;
+}
+
+.friend-link{
+    width: 24em;
+    margin-top: 2em;
+    border-radius: 20px;
+    position: relative;
+}
+
+.friend-link-card{
+    width: 24em;
+    height: 15em;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.4);
+    border: 1px solid rgb(234, 234, 234);
+    border-radius: 20px;
+}
+
+.link-img{
+    width: 20em;
+    height: 10em;
+    object-fit: cover;
+    position: absolute;
+    top: -20px;
+    left: 30px;
+    box-shadow: 2px 2px 15px rgba(0,0,0,0.4);
+    border-radius: 20px;
+}
+.friend-link-card:hover .link-img{
+    position: absolute;
+    top: -40px;
+    box-shadow: 5px 5px 40px 0px rgba(0, 0, 0, 0.75);
+    transition: 0.5s
+}
+.card-body{
+    position: absolute;
+    bottom: 0.5em;
+}
+
+.link-admin-por{
+    width: 4em;
+    height: 4em;
+    box-shadow: 2px 2px 15px rgb(0,0,0,0.3);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgb(255,255,255);
+    position: absolute;
+    top: 0.1em;
+    left: 1.6em;
+}
+
+.addlink{
+    width: 80em;
+    height: 45px;
+    margin-top: 3em;
+    margin-left: 7%;
+    background-color: rgba(200, 211, 217,0.1);
+    border-radius: 20px;
+    box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.5);
+}

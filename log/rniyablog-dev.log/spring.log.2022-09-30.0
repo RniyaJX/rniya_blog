@@ -1,0 +1,3 @@
+2022-09-30 09:28:04.378  WARN 2392 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9h28m32s726ms880µs400ns).
+2022-09-30 10:46:37.844  INFO 2392 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-09-30 10:46:37.851  INFO 2392 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

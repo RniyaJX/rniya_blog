@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Rniyablog</title>
+
+    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css" th:href="@{/lib/layui/css/layui.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/css/blog/blogCard.css" th:href="@{/css/blog/blogCard.css}">
+    <link rel="stylesheet" href="../../static/css/blog/aboutmeCard.css" th:href="@{/css/blog/aboutmeCard.css}">
+    <link rel="stylesheet" href="../../static/css/blog/footer.css" th:href="@{/css/blog/footer.css}">
+
+</head>
+<body>
+
+
+<!--中间内容-->
+<div class="row justify-content-center m-clear-padding" id="index_body" style="width: 100% !important;" >
+    <div class="row col-md-5 col-12 m-clear-padding-right article_type" id="left_body" >
+        <section class="section is-primary animate__animated" th:each="blog:${pageInfo.list}">
+            <div class="container">
+                <div class="blog-card">
+                    <div class="image-wrapper">
+                        <div class="image" th:style="'background-image: url('+@{${blog.firstPicture}}+')'">
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h1 th:text="${blog.title}">Title Here</h1>
+                        <h2 th:text="${session.username}">Subtitle Here</h2>
+                        <p th:text="${blog.description}" style="width: 100%; height: 40%">
+<!--                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut-->
+<!--                            labore et dolore magna aliqua.-->
+                        </p>
+                        <p class="card-actions" style="width: 100%">
+                            <i class="bi bi-eye"></i><span th:text="${blog.views}">10</span>
+                            &nbsp;&nbsp;&nbsp;
+                            <i class="bi bi-chat-dots text-success"></i><span>10</span>
+                            <span class="badge badge-info" style="position:absolute;right: 1em">原创</span>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <nav aria-label="Page navigation example" class="float-left align-middle" style="height: 40px; margin-top: 1em;">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link d-inline" href="#" aria-label="Previous" th:unless="${pageInfo.isFirstPage}" id="previous">
+                        <!--                       th:href="@{/index(pageNum=${pageInfo.hasPreviousPage}?${pageInfo.prePage}:1)}"-->
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link d-inline" href="#" th:each="pageNum : ${pageInfo.navigatepageNums}" th:href="@{/index(pageNum=${pageNum})}" th:text="${pageNum}">1</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link d-inline" aria-label="Next"th:unless="${pageInfo.isLastPage}" id="next">
+                        <!--                       th:href="@{/index(pageNum=${pageInfo.hasNextPage}?${pageInfo.nextPage}:${pageInfo.pages})}"-->
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="row m-clear-padding-left" id="right_body">
+        <div class="about-me-container animate__animated">
+            <div class="about-me">
+                <div class="about-me-head">
+                    <a href="#">
+                        <img class="rounded-pill" th:src="@{/images/portrait/头像.jpg}">
+                    </a>
+                    <div class="about-me-nickname">
+                        <strong class="h5"><a href="#" class="text-dark">Rniya</a></strong>
+                    </div>
+                </div>
+                <div class="about-me-body container">
+                    <div class="row text-center m-padding-large">
+                        <div class="col small border-right">
+                            <p class="m-clear-margin-btm">文章</p>
+                            <p class="text-primary">6</p>
+                        </div>
+                        <div class="col small border-right m-clear-margin">
+                            <p>标签</p>
+                            <p class="text-danger">7</p>
+                        </div>
+                        <div class="col small border-right m-clear-margin">
+                            <p>评论</p>
+                            <p class="text-warning">20</p>
+                        </div>
+                        <div class="col small m-clear-margin">
+                            <p>浏览量</p>
+                            <p class="text-success">1145</p>
+                        </div>
+                    </div>
+                    <div class="container m-padding-large" style="width: 100%">
+                        <div class="text-center text-md-left m-margin-top-small">
+                            <i class="bi-robot text-dark text-center m-clear-padding"></i><small
+                                class="m-clear-padding">&nbsp;社交</small>
+                        </div>
+                        <div class="row text-center m-clear-padding m-margin-top-small">
+                            <div class="col-4 m-clear-padding">
+                                <a href="#">
+                                    <i class="bi-github h3 text-dark"></i>
+                                </a>
+                            </div>
+                            <div class="col-4 m-clear-padding">
+                                <a href="#">
+                                    <i class="bi-wechat h3 text-success"></i>
+                                </a>
+                            </div>
+                            <div class="col-4 m-clear-padding">
+                                <a href="#" style="text-decoration: none">
+                                    <i class="layui-icon layui-icon-login-qq h3 text-primary"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container m-padding-large m-margin-top-small" style="width: 100%">
+                        <div class="text-center text-md-left">
+                            <i class="bi-tags-fill"></i><small class="m-clear-padding">&nbsp;标签</small>
+                        </div>
+                        <div class="text-center m-clear-padding">
+                            <a href="#" class="btn btn-info m-margin-top-small"
+                               style="padding-top: 0px; padding-bottom: 0px"><span class="h6">Java</span></a>
+                            <a href="#" class="btn btn-success m-margin-top-small"
+                               style="padding-top: 0px; padding-bottom: 0px"><span class="h6">Spring</span></a>
+                            <a href="#" class="btn btn-danger m-margin-top-small"
+                               style="padding-top: 0px; padding-bottom: 0px"><span class="h6">Maven</span></a>
+                            <a href="#" class="btn btn-warning m-margin-top-small"
+                               style="padding-top: 0px; padding-bottom: 0px"><span class="h6">JavaScript</span></a>
+                        </div>
+                    </div>
+                    <div class="container m-padding-large m-margin-top-small">
+                        <div class="text-center text-md-left">
+                            <i class="bi-globe2"></i><small class="m-clear-padding">&nbsp;运行时间统计</small>
+                        </div>
+                        <div class="text-center text-md-left m-margin-top-small">
+                            <small class="m-clear-padding h-25 text-center">本网站已运行
+                                <span class="text-warning">1145</span><span>年</span>
+                                <span class="text-success">141</span><span>天</span>
+                                <span class="text-secondary">9</span><span>时</span>
+                                <span class="text-primary">19</span><span>分</span>
+                                <span class="text-info">810</span><span>秒</span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--底部内容-->
+<div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+</div>
+<!--<script>-->
+<!--    function scroll() {-->
+<!--        var top = $("#nav_top").offset().top;-->
+<!--        var sTop = $(window).scrollTop();-->
+<!--        var blogTop = $(".about-me").offset().top;-->
+<!--        $(".section").addClass("animate__fadeInUp");-->
+<!--        $(".about-me-container").addClass("animate__fadeInUp")-->
+<!--        if (top <= 1) {-->
+<!--            $("#nav_top").removeClass("scroll-wi");-->
+<!--            $(".nav-font").addClass("nav-wi-font");-->
+<!--            $("#nav_top").addClass("scroll-op");-->
+<!--            $(".section").removeClass("animate__fadeInUp");-->
+<!--            $(".about-me-container").removeClass("animate__fadeInUp");-->
+<!--        } else {-->
+<!--            $("#nav_top").removeClass("scroll-op");-->
+<!--            $(".nav-font").removeClass("nav-wi-font");-->
+<!--            $("#nav_top").addClass("scroll-wi");-->
+<!--        }-->
+<!--    }-->
+
+<!--    $('#under').click(function () {-->
+<!--        var url = '/index?pageNum=2';-->
+<!--        $.ajax({-->
+<!--            url: url,-->
+<!--            type: 'GET',-->
+<!--            success: function (data) {-->
+<!--                $(".article_type").html(data);-->
+<!--            }-->
+<!--        })-->
+<!--    })-->
+
+<!--    $(window).on('scroll', function () {-->
+<!--        scroll();-->
+<!--    });-->
+<!--    $("#scroll-btn").on('click', function () {-->
+<!--        $(window).scrollTo($("#s_btn"), 1000);-->
+<!--        $(".section").addClass("animate__fadeInUp");-->
+<!--    });-->
+
+<!--    var images = new Array(6)-->
+<!--    images[0] = "../images/blogImg/wallhaven-pkq3zp.jpg";-->
+<!--    images[1] = "../images/blogImg/wallhaven-l35myl.jpg";-->
+<!--    images[2] = "../images/blogImg/wallhaven-eoy89w.jpg";-->
+<!--    images[3] = "../images/blogImg/wallhaven-q2w5or.jpg";-->
+<!--    images[4] = "../images/blogImg/ffxiv_20220320_012520_040.png";-->
+<!--    images[5] = "../images/blogImg/wallhaven-j36p95.jpg";-->
+
+<!--    var number = Math.floor(Math.random() * images.length);-->
+
+<!--    if (number == 3) {-->
+<!--        $(".welcome").addClass("text-dark");-->
+<!--    } else {-->
+<!--        $(".welcome").addClass("text-light");-->
+<!--    }-->
+
+<!--    $("#index_welcome").css({-->
+<!--        "background": "url(\"" + images[number] + "\") no-repeat center center", "background-size": "100%,100%"-->
+<!--    })-->
+<!--</script>-->
+
+</body>
+</html>

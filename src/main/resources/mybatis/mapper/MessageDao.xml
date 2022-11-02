@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rniyablog.dao.admin.MessageDao">
+
+    <resultMap id="messages" type="com.rniyablog.entity.Message">
+        <id property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="contact" column="contact"/>
+        <result property="contactNum" column="contact_num"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="getAllMessages" resultMap="messages">
+        SELECT m.id, m.nickname, m.contact, m.contact_num, m.content, m.create_time
+        FROM rniyablog.t_message m
+    </select>
+
+    <delete id="deleteMessageById" parameterType="com.rniyablog.entity.Message">
+        DELETE
+        FROM rniyablog.t_message
+        WHERE id = #{id}
+    </delete>
+
+    <insert id="saveMessage" parameterType="com.rniyablog.entity.Message">
+        INSERT INTO rniyablog.`t_message` (id, nickname, contact, contact_num, content, create_time)
+        VALUES (#{id}, #{nickname}, #{contact}, #{contactNum}, #{content}, #{createTime})
+    </insert>
+
+</mapper>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--导航栏-->
+<nav th:fragment="menu(n)" class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow p-1 mb-5 bg-white" id="nav_top">
+  <div class="container-lg row justify-content-between">
+    <div class="col-md col offset-md-1 offset-1">
+      <a class="navbar-brand md-0 h1" href="#" th:href="@{/index}" style="font-size:30px;">RniyaBlok</a>
+    </div>
+    <div class="col-md-7 h6 offset-11">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-top: 0.5em">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link nav-font" href="#" th:href="@{/admin/blogs}" th:classappend="${n == 1} ? 'text-primary'">
+              <span><i class="bi bi-pencil-square"></i>&nbsp;博客管理</span>
+            </a>
+          </li>
+          <li class="nav-item m-margin-small">
+            <a class="nav-link nav-font" href="#" th:href="@{/admin/tags}" th:classappend="${n == 2} ? 'text-primary'">
+              <span><i class="bi bi-tags"></i>&nbsp;标签管理</span>
+            </a>
+          </li>
+          <li class="nav-item m-margin-small">
+            <a class="nav-link nav-font" href="#" th:href="@{/admin/messages}" th:classappend="${n == 3} ? 'text-primary'">
+              <span><i class="bi bi-envelope"></i>&nbsp;留言列表</span>
+            </a>
+          </li>
+          <li class="nav-item m-margin-small">
+            <a class="nav-link nav-font" href="#" th:href="@{/admin/friendlink}" th:classappend="${n == 4} ? 'text-primary'">
+              <span><i class="bi bi-link-45deg"></i>&nbsp;管理友链</span>
+            </a>
+          </li>
+          <li class="nav-item m-margin-small">
+            <a class="nav-link nav-font" href="#" th:href="@{/admin/logout}" onclick="return confirm('确定要退出登录吗？')">
+              <span><i class="bi bi-option"></i>&nbsp;注销</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+</body>
+</html>

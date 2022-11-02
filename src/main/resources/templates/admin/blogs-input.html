@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>RniyaBook</title>
+
+    <link rel="stylesheet" href="../../static/lib/layui/css/layui.css" th:href="@{/lib/layui/css/layui.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap-switch/4.0.0-alpha.1/css/bootstrap-switch.min.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="../../static/css/blog/footer.css" th:href="@{/css/blog/footer.css}">
+    <link rel="stylesheet" href="../../static/css/admin/admin.css" th:href="@{/css/admin/admin.css}">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css"
+          th:href="@{/lib/editormd/css/editormd.min.css}">
+</head>
+<body>
+<!--    导航栏-->
+<nav th:replace="admin/_fragments :: menu(1)"
+     class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow p-1 mb-5 bg-white" id="nav_top">
+    <div class="container-lg row justify-content-between">
+        <div class="col-md col offset-md-1 offset-1">
+            <a class="navbar-brand md-0 h1" href="#" style="font-size:30px;">RniyaBook</a>
+        </div>
+        <div class="col-md-7 h6 offset-11">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-top: 0.5em">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-home "></span>&nbsp;博客管理</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-note"></span>&nbsp;标签管理</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-tabs"></span>&nbsp;留言列表</strong>
+                        </a>
+                    </li>
+                    <li class="nav-item m-margin-small">
+                        <a class="nav-link " href="#">
+                            <strong><span class="layui-icon layui-icon-link"></span>&nbsp;添加友链</strong>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="blog-markdown">
+        <form id="blogContent" th:object="${blog}"
+              th:action="*{id}==null ? @{/admin/blogs/input} : @{/admin/blogs/{id}/update(id=*{id})}" method="post">
+            <input type="hidden" name="published" th:value="*{published}">
+            <input type="hidden" name="id" th:value="*{id}">
+            <div class="input-group mb-3 blog-title">
+                <div class="input-group-prepend">
+                    <select class="custom-select" id="flag" name="flag" th:value="*{flag == null ? '原创':flag}">
+                        <option selected>原创</option>
+                        <option value="翻译">翻译</option>
+                        <option value="转载">转载</option>
+                    </select>
+                </div>
+                <input type="text" name="title" class="form-control" aria-label="Text input with dropdown button"
+                       placeholder="请输入标题..." th:value="*{title}">
+            </div>
+            <div class="required field">
+                <div id="md-content" style="z-index: 1 !important;">
+                    <textarea placeholder="博客内容" th:text="*{content}" name="content"
+                              style="display: none"></textarea>
+                </div>
+            </div>
+            <div class="required field">
+                <div style="width: 95%; margin-left: 2.5%;margin-right: 2.5%">
+                    <textarea class="form-control" rows="3" placeholder="博客描述..." th:text="*{description}"
+                              id="description" name="description"></textarea>
+                </div>
+            </div>
+            <div class="input-group mb-3 blog-img">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">首图</span>
+                </div>
+                <input type="text" class="form-control" th:value="*{firstPicture}" id="firstPicture"
+                       name="firstPicture">
+                <div style="width: 10%"></div>
+                <div class="input-group-prepend">
+                    <span class="input-group-text">标签</span>
+                </div>
+                <select class="dropdown form-control clearfix selectpicker border" multiple data-live-search="true"
+                        data-size="5" name="tagIds" id="tagIds" required>
+                    <option th:each="tag:${tags}" th:data-value="${tag.tagId}" th:text="${tag.tagId}"
+                            th:data-content="|<span class='badge badge-info'>${tag.tagName}</span>|">Spring
+                    </option>
+                </select>
+            </div>
+            <div class="required field" style="margin-bottom: 1em;">
+                <div style="width: 95%; margin-left: 2.5%;margin-right: 2.5%;" class="clearfix">
+                    <div class="custom-control custom-switch" style="display: inline">
+                        <input type="checkbox" class="custom-control-input" id="commentable" name="commentable"
+                               th:checked="*{commentable}">
+                        <label class="custom-control-label" for="commentable">评论</label>
+                    </div>
+                    <div class="custom-control custom-switch" style="display: inline">
+                        <input type="checkbox" class="custom-control-input" id="recommend" name="recommend"
+                               th:checked="*{recommend}">
+                        <label class="custom-control-label" for="recommend">推荐</label>
+                    </div>
+                    <div class="custom-control custom-switch" style="display: inline">
+                        <input type="checkbox" class="custom-control-input" id="shareStatement" name="shareStatement"
+                               th:checked="*{shareStatement}">
+                        <label class="custom-control-label" for="shareStatement">转载声明</label>
+                    </div>
+                    <div style="display: inline;" class="float-right">
+                        <button class="btn btn-success" id="save">保存</button>
+                        <button class="btn btn-primary" id="publish">发布</button>
+                        <a th:href="@{/admin/blogs}" class="btn btn-secondary" onclick="window.history.go(-1)">返回</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!--底部内容-->
+<footer class="mainfooter" role="contentinfo" style="position:relative; top: 11em;">
+    <div class="footer-middle">
+        <div class="container">
+            <div class="row">
+            </div>
+            <div class="row">
+                <div class="col-md-12 copy">
+                    <p class="text-center"><span class="h4">🙂</span></p>
+                    <p class="text-center">感谢您浏览我的博客</p>
+                    <p class="text-center">Thanks for your browsing</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../static/lib/layui/layui.js" th:src="@{/lib/layui/layui.js}"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-switch/4.0.0-alpha.1/js/bootstrap-switch.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-zh_CN.min.js"></script>
+    <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+</div>
+<script>
+    // 初始化mackdown编辑器
+    var contentEditor;
+    $(function () {
+        contentEditor = editormd("md-content", {
+            width: "95%",
+            height: 640,
+            syncScrolling: "single",
+            // path    : "../static/lib/editormd/lib/"
+            path: "/lib/editormd/lib/",
+            theme: "dark",
+            previewTheme: "dark",
+            editorTheme: "pastel-on-dark",
+            // markdown : md-content,
+            // codeFold : true,
+            // //syncScrolling : false,
+            // saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+            // searchReplace : true,
+            // //watch : false,                // 关闭实时预览
+            htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启
+            // //toolbar  : false,             //关闭工具栏
+            // //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+            // emoji : true,
+            // taskList : true,
+            tocm: true,         // Using [TOCM]
+            tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+            flowChart: true,             // 开启流程图支持，默认关闭
+            sequenceDiagram: true,       // 开启时序/序列图支持，默认关闭,
+            // //dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+            // //dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+            // //dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+            // //dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+            // //dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+            // imageUpload : true,
+            // imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"]
+        });
+    });
+
+
+    $('#save').click(function () {
+        $('[name="published"]').val(false);
+        $('#blog-form').submit();
+    });
+
+    $('#publish').click(function () {
+        $('[name="published"]').val(true);
+        $('#blog-form').submit();
+    });
+
+</script>
+
+</body>
+</html>

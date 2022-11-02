@@ -1,0 +1,45 @@
+2022-09-29 08:59:34.090  WARN 2392 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=10h7m36s913ms191µs700ns).
+2022-09-29 11:49:56.607  INFO 2392 --- [http-nio-8080-exec-5] com.rniyablog.aspect.LogAspect           : Request : {url='http://RNIYA/', ip='10.190.28.6', classMethod='com.rniyablog.controller.BlogIndexController.index', args=[{}, 1, {}]}
+2022-09-29 11:49:56.624 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getIndexMessage   : ==>  Preparing: SELECT DISTINCT SUM(b.`views`) views,COUNT(b.`id`) blogs,COUNT(c.`id`) comments FROM rniyablog.`t_blog` b LEFT JOIN rniyablog.`t_comment` c ON c.`id` IS NOT NULL GROUP BY c.`id`
+2022-09-29 11:49:56.655 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getIndexMessage   : ==> Parameters: 
+2022-09-29 11:49:56.663 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getIndexMessage   : <==      Total: 1
+2022-09-29 11:49:56.675 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getAllBlog_COUNT  : ==>  Preparing: SELECT count(0) FROM rniyablog.t_blog b
+2022-09-29 11:49:56.676 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getAllBlog_COUNT  : ==> Parameters: 
+2022-09-29 11:49:56.676 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getAllBlog_COUNT  : <==      Total: 1
+2022-09-29 11:49:56.679 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getAllBlog        : ==>  Preparing: SELECT b.id, b.title, b.first_picture, b.description, b.content, b.create_time, b.views, b.published, b.recommend, b.flag FROM rniyablog.t_blog b order by create_time desc LIMIT ?
+2022-09-29 11:49:56.680 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getAllBlog        : ==> Parameters: 5(Integer)
+2022-09-29 11:49:56.683 DEBUG 2392 --- [http-nio-8080-exec-5] c.r.dao.admin.BlogsDao.getAllBlog        : <==      Total: 5
+2022-09-29 11:49:56.684 DEBUG 2392 --- [http-nio-8080-exec-5] com.rniyablog.dao.admin.TagDao.findAll   : ==>  Preparing: SELECT t.`id`, t.`tag_name`, COUNT(t.`id` = bt.`blog_id`) AS blog_num FROM t_tag t LEFT JOIN blog_tags bt ON t.`id` = bt.`tag_id` GROUP BY t.`id`
+2022-09-29 11:49:56.684 DEBUG 2392 --- [http-nio-8080-exec-5] com.rniyablog.dao.admin.TagDao.findAll   : ==> Parameters: 
+2022-09-29 11:49:56.686 DEBUG 2392 --- [http-nio-8080-exec-5] com.rniyablog.dao.admin.TagDao.findAll   : <==      Total: 5
+2022-09-29 11:49:56.687  INFO 2392 --- [http-nio-8080-exec-5] com.rniyablog.aspect.LogAspect           : Result : /blog/index
+2022-09-29 11:49:57.211  INFO 2392 --- [http-nio-8080-exec-8] com.rniyablog.aspect.LogAspect           : Request : {url='http://localhost:8080/', ip='10.190.28.6', classMethod='com.rniyablog.controller.BlogIndexController.index', args=[{}, 1, {}]}
+2022-09-29 11:49:57.213 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getIndexMessage   : ==>  Preparing: SELECT DISTINCT SUM(b.`views`) views,COUNT(b.`id`) blogs,COUNT(c.`id`) comments FROM rniyablog.`t_blog` b LEFT JOIN rniyablog.`t_comment` c ON c.`id` IS NOT NULL GROUP BY c.`id`
+2022-09-29 11:49:57.213 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getIndexMessage   : ==> Parameters: 
+2022-09-29 11:49:57.214 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getIndexMessage   : <==      Total: 1
+2022-09-29 11:49:57.216 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getAllBlog_COUNT  : ==>  Preparing: SELECT count(0) FROM rniyablog.t_blog b
+2022-09-29 11:49:57.216 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getAllBlog_COUNT  : ==> Parameters: 
+2022-09-29 11:49:57.216 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getAllBlog_COUNT  : <==      Total: 1
+2022-09-29 11:49:57.219 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getAllBlog        : ==>  Preparing: SELECT b.id, b.title, b.first_picture, b.description, b.content, b.create_time, b.views, b.published, b.recommend, b.flag FROM rniyablog.t_blog b order by create_time desc LIMIT ?
+2022-09-29 11:49:57.219 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getAllBlog        : ==> Parameters: 5(Integer)
+2022-09-29 11:49:57.224 DEBUG 2392 --- [http-nio-8080-exec-8] c.r.dao.admin.BlogsDao.getAllBlog        : <==      Total: 5
+2022-09-29 11:49:57.225 DEBUG 2392 --- [http-nio-8080-exec-8] com.rniyablog.dao.admin.TagDao.findAll   : ==>  Preparing: SELECT t.`id`, t.`tag_name`, COUNT(t.`id` = bt.`blog_id`) AS blog_num FROM t_tag t LEFT JOIN blog_tags bt ON t.`id` = bt.`tag_id` GROUP BY t.`id`
+2022-09-29 11:49:57.226 DEBUG 2392 --- [http-nio-8080-exec-8] com.rniyablog.dao.admin.TagDao.findAll   : ==> Parameters: 
+2022-09-29 11:49:57.231 DEBUG 2392 --- [http-nio-8080-exec-8] com.rniyablog.dao.admin.TagDao.findAll   : <==      Total: 5
+2022-09-29 11:49:57.232  INFO 2392 --- [http-nio-8080-exec-8] com.rniyablog.aspect.LogAspect           : Result : /blog/index
+2022-09-29 11:49:57.352  INFO 2392 --- [http-nio-8080-exec-4] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in the HTTP protocol [RTSP/1.00x0d0x0a0x0d0x0a...]
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:570)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:271)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:890)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1789)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1191)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:750)
+
+2022-09-29 23:53:01.561  WARN 2392 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=19m10s79ms744µs200ns).
