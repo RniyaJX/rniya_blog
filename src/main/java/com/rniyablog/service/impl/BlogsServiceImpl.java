@@ -12,6 +12,7 @@ import com.rniyablog.util.MarkdownUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -45,6 +46,7 @@ public class BlogsServiceImpl implements BlogsService {
 
     //保存博客
     @Override
+    @Transactional
     public String saveBlog(Blog blog) {
         blog.setCreateTime(new Date());
         blog.setViews(0);
@@ -62,8 +64,8 @@ public class BlogsServiceImpl implements BlogsService {
         return message;
     }
 
+    @Transactional
     public int addBlogTags(List<String> tagIds,Blog blog){
-        blog = blogsDao.getBlogIdByTitleAndUserId(blog.getTitle(),blog.getUserId());
         List<BlogTags> blogTags = new ArrayList<>();
         tagDao.deleteBlogTagsByBlogId(blog);
         for (String id : tagIds){

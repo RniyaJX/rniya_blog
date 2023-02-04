@@ -6,6 +6,7 @@ import com.rniyablog.entity.Comment;
 import com.rniyablog.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -76,6 +77,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public int saveComment(Comment comment, Comment parentComment) {
         comment.setCreateTime(new Date());
         int comments = commentDao.saveComment(comment);

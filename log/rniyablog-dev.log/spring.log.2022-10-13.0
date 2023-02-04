@@ -1,3 +1,0 @@
-2022-10-13 11:21:37.013  WARN 16956 --- [HikariPool-3 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Thread starvation or clock leap detected (housekeeper delta=11h23m1s890ms298µs600ns).
-2022-10-13 18:29:14.390  INFO 16956 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
-2022-10-13 18:29:14.396  INFO 16956 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.

@@ -7,6 +7,7 @@ import com.rniyablog.queryvo.TagBlogs;
 import com.rniyablog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
+    @Transactional
     public String saveTag(Tag tag) {
         String message = "" ;
         int t = 0;
