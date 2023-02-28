@@ -73,7 +73,7 @@
         <div class="friend-link col-4" th:each="friendlink : ${friendlinkList}" th:onclick="window.open([[@{${friendlink.link}}]])">
             <div class="friend-link-card card" style="margin-left: 10%;">
                 <img class="link-img" src="../../static/images/blogImg/wallhaven-eoy89w.jpg" th:src="@{${friendlink.img}}" alt="">
-                <div class="card-body text-center" style="width: 100%;">+
+                <div class="card-body text-center" style="width: 100%;">
                     <img class="link-admin-por" src="../../static/images/portrait/头像.jpg" th:src="@{${friendlink.avatar}}" alt="">
                     <a th:href="@{${friendlink.link}}" class="text-dark link-admin" style="text-decoration: none">
                         <p class="h5 text-center" style="width: 100%" th:text="${friendlink.title}">XXXXXX</p>

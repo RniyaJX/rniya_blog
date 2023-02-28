@@ -10,7 +10,6 @@ import com.rniyablog.queryvo.*;
 import com.rniyablog.service.BlogsService;
 import com.rniyablog.util.MarkdownUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
