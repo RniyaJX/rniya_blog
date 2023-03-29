@@ -192,5 +192,4 @@
     <select id="getBlogIdByTitleAndUserId" resultType="com.rniyablog.entity.Blog">
         SELECT * FROM rniyablog.`t_blog` b WHERE b.title = #{title} AND b.user_id = #{userId}
     </select>
-
 </mapper>
